@@ -1,6 +1,6 @@
-# ch3/example2.py
+# ch3/example3.py
 
-import _thread as thread
+import threading
 from math import sqrt
 
 def is_prime(x):
@@ -22,10 +22,26 @@ def is_prime(x):
 
         print('%i is a prime number.' % x)
 
+class MyThread(threading.Thread):
+    def __init__(self, x):
+        threading.Thread.__init__(self)
+        self.x = x
+
+    def run(self):
+        print('Starting processing %i...' % )
+        is_prime(self.x)
+
 my_input = [2, 193, 323, 1327, 433785907]
 
-for x in my_input:
-    thread.start_new_thread(is_prime, (x, ))
+threads = []
 
-a = input('Type something to quit: \n')
+for x in my_input:
+    temp_thread = MyThread(x)
+    temp_thread.start()
+
+    threads.append(temp_thread)
+
+for thread in threads:
+    thread.join()
+
 print('Finished.')
