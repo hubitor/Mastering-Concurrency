@@ -1,7 +1,14 @@
 # ch4/example1.py
 
-n_files = 5
+n_files = 1000
 files = []
 
-for x in range(n_files):
-    files.append()
+# method 1
+for i in range(n_files):
+    files.append(open('output1/sample%i.txt' % i, 'w'))
+
+# method 2
+'''for i in range(n_files):
+    f = open('output1/sample%i.txt' % i, 'w')
+    files.append(f)
+    f.close()'''
