@@ -25,6 +25,7 @@ def get_synonyms_from_html(html_source):
 
 
 my_input = input('Enter a list of words for scraped synonyms (separated by commas): ')
+print()
 
 start = timer()
 words = my_input.split(',')
