@@ -17,13 +17,14 @@ def count_down(name, delay):
     print('Process %s exiting...' % name)
 
 
-process1 = Process(target=count_down, args=('A', 0.5))
-process2 = Process(target=count_down, args=('B', 0.5))
+if __name__ == '__main__':
+    process1 = Process(target=count_down, args=('A', 0.5))
+    process2 = Process(target=count_down, args=('B', 0.5))
 
-process1.start()
-process2.start()
+    process1.start()
+    process2.start()
 
-process1.join()
-process2.join()
+    process1.join()
+    process2.join()
 
-print('Done.')
+    print('Done.')
