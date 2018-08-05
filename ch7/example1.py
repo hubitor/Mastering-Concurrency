@@ -1,6 +1,5 @@
 # ch7/example1.py
 
-from timeit import default_timer as timer
 import multiprocessing
 
 
@@ -11,42 +10,29 @@ class ReductionConsumer(multiprocessing.Process):
         self.task_queue = task_queue
         self.result_queue = result_queue
 
-    # TODO: either call task_done() on both numbers
-    # or design the task queue differently to take
-    # in two numbers in one job
     def run(self):
         pname = self.name
-        #print('Using process %s...' % pname)
+        print('Using process %s...' % pname)
 
         while True:
             num1 = self.task_queue.get()
             if num1 is None:
-                #print('Exiting process %s.' % pname)
+                print('Exiting process %s.' % pname)
                 self.task_queue.task_done()
                 break
 
             self.task_queue.task_done()
             num2 = self.task_queue.get()
             if num2 is None:
-                #print('Reaching the end with process %s and number %i.' % (pname, num1))
+                print('Reaching the end with process %s and number %i.' % (pname, num1))
                 self.task_queue.task_done()
                 self.result_queue.put(num1)
                 break
 
-            #print('Running process %s on numbers %i and %i.' % (pname, num1, num2))
+            print('Running process %s on numbers %i and %i.' % (pname, num1, num2))
             self.task_queue.task_done()
             self.result_queue.put(num1 + num2)
 
-
-def built_in_sum(array):
-    return sum(array)
-
-def sequential_sum(array):
-    running_sum = 0
-    for item in array:
-        running_sum += item
-
-    return running_sum
 
 def reduce_sum(array):
     tasks = multiprocessing.JoinableQueue()
@@ -76,17 +62,7 @@ def reduce_sum(array):
     return results.get()
 
 
-power = 4
-my_array = [i for i in range(10 ** power)]
+my_array = [i for i in range(20)]
 
-start = timer()
-result = built_in_sum(my_array)
-print('Built-in function took %.2f seconds.' % (timer() - start))
-
-start = timer()
-result = sequential_sum(my_array)
-print('Sequential function took %.2f seconds.' % (timer() - start))
-
-start = timer()
 result = reduce_sum(my_array)
-print('Reduction operator took %.2f seconds.' % (timer() - start))
+print('Final result: %i.' % result)
