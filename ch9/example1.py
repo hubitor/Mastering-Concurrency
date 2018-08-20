@@ -26,10 +26,6 @@ def is_prime(x):
 
 if __name__ == '__main__':
 
-    start = timer()
-
     is_prime(9637529763296797)
-    is_prime(975571394384107)
+    is_prime(427920331)
     is_prime(157)
-
-    print('Took %.2f seconds.' % (timer() - start))
