@@ -1,7 +1,6 @@
 # ch9/example1.py
 
 from math import sqrt
-from timeit import default_timer as timer
 
 def is_prime(x):
     print('Processing %i...' % x)

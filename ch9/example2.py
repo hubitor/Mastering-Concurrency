@@ -1,8 +1,6 @@
 # ch9/example1.py
 
 from math import sqrt
-from timeit import default_timer as timer
-
 import asyncio
 
 async def is_prime(x):
