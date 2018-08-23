@@ -22,7 +22,6 @@ async def is_prime(x):
                 print('%i is not a prime number.' % x)
                 return
             elif i % 100000 == 1:
-                #print('Here!')
                 await asyncio.sleep(0)
 
         print('%i is a prime number.' % x)
