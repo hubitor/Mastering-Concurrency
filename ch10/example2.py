@@ -25,7 +25,6 @@ tasks = [
 
 start = time.perf_counter()
 loop.run_until_complete(asyncio.wait(tasks))
-loop.close()
 
 print('-' * 40)
 print('Done.')
