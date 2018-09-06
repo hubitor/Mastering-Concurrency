@@ -11,10 +11,11 @@ class EchoServerClientProtocol(asyncio.Protocol):
         print('Data received: {!r}'.format(message))
 
         print('Send: {!r}'.format(message))
-        self.transport.write(data)
+        #self.transport.write(data)
+        self.transport.write(('Sent back: {}'.format(message)).encode())
 
-        print('Close the client socket')
-        self.transport.close()
+        #print('Close the client socket')
+        #self.transport.close()
 
 loop = asyncio.get_event_loop()
 # Each client connection will create a new protocol instance
