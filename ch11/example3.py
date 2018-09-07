@@ -1,3 +1,5 @@
+# ch11/example3.py
+
 import asyncio
 
 class EchoServerClientProtocol(asyncio.Protocol):
@@ -10,15 +12,12 @@ class EchoServerClientProtocol(asyncio.Protocol):
         message = data.decode()
         print('Data received: {!r}'.format(message))
 
-        print('Send: {!r}'.format(message))
-        #self.transport.write(data)
-        self.transport.write(('Sent back: {}'.format(message)).encode())
+        self.transport.write(('Echoed back: {}'.format(message)).encode())
 
-        #print('Close the client socket')
-        #self.transport.close()
+        print('Close the client socket')
+        self.transport.close()
 
 loop = asyncio.get_event_loop()
-# Each client connection will create a new protocol instance
 coro = loop.create_server(EchoServerClientProtocol, '127.0.0.1', 8888)
 server = loop.run_until_complete(coro)
 
