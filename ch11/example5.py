@@ -9,7 +9,7 @@ from timeit import default_timer as timer
 
 async def download_html(session, url):
     async with session.get(url, ssl=False) as res:
-        filename = f'output/{os.path.basename(url)}.html'
+        filename = 'output/%s.html' % os.path.basename(url)
 
         async with aiofiles.open(filename, 'wb') as f:
             while True:
@@ -39,4 +39,4 @@ loop.run_until_complete(
     asyncio.gather(*(main(url) for url in urls))
 )
 
-print(f'Took {timer() - start:.2f} seconds.')
+print('Took %.2f seconds.' % (timer() - start))

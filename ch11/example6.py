@@ -8,7 +8,7 @@ from timeit import default_timer as timer
 def download_html(url):
     res = requests.get(url)
 
-    filename = f'output/{os.path.basename(url)}.html'
+    filename = 'output/%s.html' % os.path.basename(url)
     with open(filename, 'w') as f:
         f.write(res.text)
 
@@ -25,4 +25,4 @@ start = timer()
 for url in urls:
     download_html(url)
 
-print(f'Took {timer() - start:.2f} seconds.')
+print('Took %.2f seconds.' % (timer() - start))
