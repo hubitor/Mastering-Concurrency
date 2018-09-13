@@ -1,3 +1,5 @@
+# ch4/example4.py
+
 import threading
 
 class acquire(object):
@@ -14,13 +16,7 @@ class acquire(object):
         return False
 
 # The philosopher thread
-def traditional_philosopher(left, right):
-    while True:
-        with left:
-             with right:
-                 print(f'Philosopher at {threading.currentThread()} is eating.')
-
-def ordered_philosopher(left, right):
+def philosopher(left, right):
     while True:
         with acquire(left,right):
              print(f'Philosopher at {threading.currentThread()} is eating.')
@@ -31,7 +27,7 @@ forks = [threading.Lock() for n in range(N_FORKS)]
 
 # Create all of the philosophers
 phils = [threading.Thread(
-    target=traditional_philosopher,
+    target=philosopher,
     args=(forks[n], forks[(n + 1) % N_FORKS])
 ) for n in range(N_FORKS)]
 
