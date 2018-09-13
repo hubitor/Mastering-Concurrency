@@ -50,5 +50,5 @@ thread1.join()
 thread2.start()
 thread2.join()
 
-print(f'Took {timer() - start:.2f} seconds.')
+print('Took %.2f seconds.' % (timer() - start))
 print('Finished.')
