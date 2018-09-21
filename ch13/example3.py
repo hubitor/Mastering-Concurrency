@@ -7,21 +7,26 @@ def writer():
 
     while True:
         with service:
-            with resource:
-                print(f'Writing being done by {threading.current_thread().name}.')
-                text += f'Writing was done by {threading.current_thread().name}. '
+            resource.acquire()
+
+        print(f'Writing being done by {threading.current_thread().name}.')
+        text += f'Writing was done by {threading.current_thread().name}. '
+
+        resource.release()
 
 def reader():
     global rcount
 
     while True:
         with service:
-            with rcounter:
-                rcount += 1
-                if rcount == 1:
-                    resource.acquire()
+            rcounter.acquire()
+            rcount += 1
+            if rcount == 1:
+                resource.acquire()
+        rcounter.release()
 
         print(f'Reading being done by {threading.current_thread().name}:')
+        #print(text)
 
         with rcounter:
             rcount -= 1

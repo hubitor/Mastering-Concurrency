@@ -33,9 +33,7 @@ rcount = 0
 rcounter = threading.Lock()
 resource = threading.Lock()
 
-# comment/uncomment the two lines to see the differences
 threads = [threading.Thread(target=reader) for i in range(3)] + [threading.Thread(target=writer) for i in range(2)]
-#threads = [threading.Thread(target=reader) for i in range(1)] + [threading.Thread(target=writer) for i in range(2)]
 
 for thread in threads:
     thread.start()
