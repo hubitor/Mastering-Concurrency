@@ -1,30 +1,19 @@
-import time
-import threading
+# ch15/example1.py
 
-COUNT = 50000000
+import sys
 
-def countdown(n):
-    while n > 0:
-        n -= 1
+print(f'Reference count when direct-referencing: {sys.getrefcount([7])}.')
 
-###########################################################################
+a = [7]
+print(f'Reference count when referenced once: {sys.getrefcount(a)}.')
 
-start = time.time()
-countdown(COUNT)
-
-print('Sequential program finished.')
-print(f'Took {time.time() - start : .2f} seconds.')
+b = a
+print(f'Reference count when referenced twice: {sys.getrefcount(a)}.')
 
 ###########################################################################
 
-thread1 = threading.Thread(target=countdown, args=(COUNT // 2,))
-thread2 = threading.Thread(target=countdown, args=(COUNT // 2,))
+a[0] = 8
+print(f'Variable a after a is changed: {a}.')
+print(f'Variable b after a is changed: {b}.')
 
-start = time.time()
-thread1.start()
-thread2.start()
-thread1.join()
-thread2.join()
-
-print('Concurrent program finished.')
-print(f'Took {time.time() - start : .2f} seconds.')
+print('Finished.')
