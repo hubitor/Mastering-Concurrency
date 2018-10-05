@@ -1,7 +1,6 @@
 # ch16/example1.py
 
 from concurrent.futures import ThreadPoolExecutor
-import asyncio
 import time
 
 class LocklessCounter():
@@ -18,7 +17,7 @@ class LocklessCounter():
 
 counter = LocklessCounter()
 with ThreadPoolExecutor(max_workers=3) as executor:
-    executor.map(counter.increment, [1 for i in range(1000)])
+    executor.map(counter.increment, [1 for i in range(3000)])
 
 print(f'Final counter: {counter.get_value()}.')
 print('Finished.')

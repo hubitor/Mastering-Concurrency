@@ -2,7 +2,6 @@
 
 import threading
 from concurrent.futures import ThreadPoolExecutor
-import asyncio
 import time
 
 class LockedCounter():
@@ -17,11 +16,14 @@ class LockedCounter():
             self.value = new_value
 
     def get_value(self):
-        return self.value
+        with self.lock:
+            value = self.value
+
+        return value
 
 counter = LockedCounter()
 with ThreadPoolExecutor(max_workers=3) as executor:
-    executor.map(counter.increment, [1 for i in range(1000)])
+    executor.map(counter.increment, [1 for i in range(3000)])
 
 print(f'Final counter: {counter.get_value()}.')
 print('Finished.')
