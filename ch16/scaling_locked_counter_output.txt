@@ -1,0 +1,41 @@
+> python3 example3.py
+Number of threads: 1
+Final counter: 100.
+Time taken:  0.15 seconds.
+----------------------------------------
+Number of threads: 2
+Final counter: 200.
+Time taken:  0.28 seconds.
+----------------------------------------
+Number of threads: 3
+Final counter: 300.
+Time taken:  0.45 seconds.
+----------------------------------------
+Number of threads: 4
+Final counter: 400.
+Time taken:  0.59 seconds.
+----------------------------------------
+Number of threads: 5
+Final counter: 500.
+Time taken:  0.75 seconds.
+----------------------------------------
+Number of threads: 6
+Final counter: 600.
+Time taken:  0.87 seconds.
+----------------------------------------
+Number of threads: 7
+Final counter: 700.
+Time taken:  1.01 seconds.
+----------------------------------------
+Number of threads: 8
+Final counter: 800.
+Time taken:  1.18 seconds.
+----------------------------------------
+Number of threads: 9
+Final counter: 900.
+Time taken:  1.29 seconds.
+----------------------------------------
+Number of threads: 10
+Final counter: 1000.
+Time taken:  1.49 seconds.
+----------------------------------------
