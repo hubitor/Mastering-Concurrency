@@ -3,7 +3,7 @@
 from concurrent.futures import ThreadPoolExecutor
 import time
 
-class LocklessCounter():
+class LocklessCounter:
     def __init__(self):
         self.value = 0
 

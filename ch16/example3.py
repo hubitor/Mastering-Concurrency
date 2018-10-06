@@ -5,7 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 import time
 import matplotlib.pyplot as plt
 
-class LockedCounter():
+class LockedCounter:
     def __init__(self):
         self.value = 0
         self.lock = threading.Lock()

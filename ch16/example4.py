@@ -4,7 +4,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 import time
 
-class LockedCounter():
+class LockedCounter:
     def __init__(self):
         self.value = 0
         self.lock = threading.Lock()
@@ -21,7 +21,7 @@ class LockedCounter():
 
         return value
 
-class ApproximateCounter():
+class ApproximateCounter:
     def __init__(self, global_counter):
         self.value = 0
         self.lock = threading.Lock()
