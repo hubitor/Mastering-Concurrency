@@ -7,42 +7,27 @@ class LinkedList:
     def __init__(self):
         self.head = None
 
-    def __str__(self):
-        result = ''
-        current_node = self.head
-        while current_node:
-            result += f'{current_node.value} - '
-            current_node = current_node.next
-
-        return result[: -3]
-
-    def add(self, value):
+    # adds another node with 'value' at the end of the list
+    def add_at_tail(self, value):
         new_node = Node(value)
 
         current_node = self.head
+
         if current_node:
             while current_node.next:
                 current_node = current_node.next
+
             current_node.next = new_node
 
         else:
             self.head = new_node
 
-    # checks if value is in the list
-    def check(self, value):
-        current_node = self.head
-        while current_node:
-            if current_node.value == value:
-                return True
-
-            current_node = current_node.next
-
-        return False
-
-    # precondition: value has to be in the list
-    def find_index(self, value):
+    # finds and returns the index of the first occurence of 'value' in the list
+    # returns 'False' if 'value' is not in the list
+    def find_index_of(self, value):
         current_node = self.head
         i = 0
+
         while current_node:
             if current_node.value == value:
                 return i
@@ -50,17 +35,29 @@ class LinkedList:
             current_node = current_node.next
             i += 1
 
-    # precondition: value has to be in the list
-    def delete(self, value):
-        current_node = self.head
-        if current_node.value == value:
-            self.head = current_node.next
-            return
+        return False
 
-        while current_node.next:
-            if current_node.next.value == value:
-                break
+    # deletes the 'delete_index'-th node in the list and returns its value
+    # returns 'False' if 'delete_index' is out of bound
+    def delete_at_index(self, delete_index):
+        if self.head:
+            if delete_index == 0:
+                delete_value = self.head.value
+                self.head = self.head.next
+                return delete_value
 
-            current_node = current_node.next
+            current_node = self.head
+            i = 0
 
-        current_node.next = current_node.next.next
+            while i < delete_index - 1:
+                current_node = current_node.next
+                i += 1
+
+                if current_node is None:
+                    return False
+
+            delete_value = current_node.next.value
+            current_node.next = current_node.next.next
+            return delete_value
+
+        return False
