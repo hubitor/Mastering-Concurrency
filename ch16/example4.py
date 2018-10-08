@@ -3,6 +3,7 @@
 import threading
 from concurrent.futures import ThreadPoolExecutor
 import time
+import matplotlib.pyplot as plt
 
 class LockedCounter:
     def __init__(self):
@@ -48,7 +49,11 @@ def thread_increment(counter, n):
     for i in range(n):
         counter.increment(1)
 
-for n_workers in range(1, 5):
+n_threads = []
+times = []
+for n_workers in range(1, 11):
+
+
     global_counter = LockedCounter()
 
     start = time.time()
@@ -57,7 +62,13 @@ for n_workers in range(1, 5):
     with ThreadPoolExecutor(max_workers=n_workers) as executor:
         executor.map(thread_increment, local_counters, [100 for i in range(n_workers)])
 
+    times.append(time.time() - start)
+
     print(f'Number of threads: {n_workers}')
     print(f'Final counter: {global_counter.get_value()}.')
-    print(f'Time taken: {time.time() - start : .2f} seconds.')
+    print(f'Time taken: {times[-1] : .2f} seconds.')
     print('-' * 40)
+
+plt.plot(n_threads, times)
+plt.xlabel('Number of threads'); plt.ylabel('Time in seconds')
+plt.show()

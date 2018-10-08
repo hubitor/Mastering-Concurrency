@@ -27,8 +27,10 @@ times = []
 for n_workers in range(1, 11):
     n_threads.append(n_workers)
 
-    start = time.time()
     counter = LockedCounter()
+
+    start = time.time()
+
     with ThreadPoolExecutor(max_workers=n_workers) as executor:
         executor.map(counter.increment, [1 for i in range(100 * n_workers)])
 
