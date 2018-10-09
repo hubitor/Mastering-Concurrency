@@ -49,10 +49,24 @@ def thread_increment(counter, n):
     for i in range(n):
         counter.increment(1)
 
-n_threads = []
-times = []
+single_counter_n_threads = []
+single_counter_times = []
 for n_workers in range(1, 11):
+    single_counter_n_threads.append(n_workers)
 
+    counter = LockedCounter()
+
+    start = time.time()
+
+    with ThreadPoolExecutor(max_workers=n_workers) as executor:
+        executor.map(counter.increment, [1 for i in range(100 * n_workers)])
+
+    single_counter_times.append(time.time() - start)
+
+approx_counter_n_threads = []
+approx_counter_times = []
+for n_workers in range(1, 11):
+    approx_counter_n_threads.append(n_workers)
 
     global_counter = LockedCounter()
 
@@ -62,13 +76,24 @@ for n_workers in range(1, 11):
     with ThreadPoolExecutor(max_workers=n_workers) as executor:
         executor.map(thread_increment, local_counters, [100 for i in range(n_workers)])
 
-    times.append(time.time() - start)
+    approx_counter_times.append(time.time() - start)
 
     print(f'Number of threads: {n_workers}')
     print(f'Final counter: {global_counter.get_value()}.')
-    print(f'Time taken: {times[-1] : .2f} seconds.')
     print('-' * 40)
 
-plt.plot(n_threads, times)
+single_counter_line, = plt.plot(
+    single_counter_n_threads,
+    single_counter_times,
+    c = 'blue',
+    label = 'Single counter'
+)
+approx_counter_line, = plt.plot(
+    approx_counter_n_threads,
+    approx_counter_times,
+    c = 'red',
+    label = 'Approximate counter'
+)
+plt.legend(handles=[single_counter_line, approx_counter_line], loc=2)
 plt.xlabel('Number of threads'); plt.ylabel('Time in seconds')
 plt.show()
