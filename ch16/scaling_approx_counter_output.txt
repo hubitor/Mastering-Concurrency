@@ -1,0 +1,31 @@
+> python3 example4.py
+Number of threads: 1
+Final counter: 100.
+----------------------------------------
+Number of threads: 2
+Final counter: 200.
+----------------------------------------
+Number of threads: 3
+Final counter: 300.
+----------------------------------------
+Number of threads: 4
+Final counter: 400.
+----------------------------------------
+Number of threads: 5
+Final counter: 500.
+----------------------------------------
+Number of threads: 6
+Final counter: 600.
+----------------------------------------
+Number of threads: 7
+Final counter: 700.
+----------------------------------------
+Number of threads: 8
+Final counter: 800.
+----------------------------------------
+Number of threads: 9
+Final counter: 900.
+----------------------------------------
+Number of threads: 10
+Final counter: 1000.
+----------------------------------------
