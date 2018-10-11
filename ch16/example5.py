@@ -11,8 +11,8 @@ my_network = BadNetwork('A', 1)
 #my_network = GoodNetwork('A', 1)
 print(f'Initial network: {my_network}')
 
-my_network.add_node('B', 3)
-my_network.add_node('C', 2)
+my_network.add_node('B', 1)
+my_network.add_node('C', 1)
 print(f'Full network: {my_network}')
 
 #print(my_network.get_primary_value())
