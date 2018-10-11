@@ -45,9 +45,8 @@ class ApproximateCounter:
 
         return value
 
-def thread_increment(counter, n):
-    for i in range(n):
-        counter.increment(1)
+###########################################################################
+# Previous single-lock counter
 
 single_counter_n_threads = []
 single_counter_times = []
@@ -63,6 +62,12 @@ for n_workers in range(1, 11):
 
     single_counter_times.append(time.time() - start)
 
+###########################################################################
+# New approximate counters
+
+def thread_increment(counter):
+    counter.increment(1)
+
 approx_counter_n_threads = []
 approx_counter_times = []
 for n_workers in range(1, 11):
@@ -74,13 +79,17 @@ for n_workers in range(1, 11):
 
     local_counters = [ApproximateCounter(global_counter) for i in range(n_workers)]
     with ThreadPoolExecutor(max_workers=n_workers) as executor:
-        executor.map(thread_increment, local_counters, [100 for i in range(n_workers)])
+        for i in range(100):
+            executor.map(thread_increment, local_counters)
 
     approx_counter_times.append(time.time() - start)
 
     print(f'Number of threads: {n_workers}')
     print(f'Final counter: {global_counter.get_value()}.')
     print('-' * 40)
+
+###########################################################################
+# Plotting
 
 single_counter_line, = plt.plot(
     single_counter_n_threads,
