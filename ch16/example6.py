@@ -1,6 +1,6 @@
-# ch16/example5.py
+# ch16/example6.py
 
-from network import Network
+from concurrent_network import Network
 import threading
 
 def print_network_primary_value():

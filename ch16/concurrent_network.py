@@ -1,3 +1,5 @@
+# ch16/concurrent_network.py
+
 from copy import deepcopy
 import time
 from random import choice
@@ -21,6 +23,7 @@ class Network:
 
         return False
 
+    # precondition: the object has more than one node left
     def refresh_primary(self):
         del self.data[self.primary_key]
         self.primary_key = choice(list(self.data))
