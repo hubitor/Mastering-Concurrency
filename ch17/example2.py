@@ -1,14 +1,14 @@
-# ch17/example1.py
+# ch17/example2.py
 
 import dis
 import sys; sys.setswitchinterval(.000001)
 import threading
 
 def foo():
-    global n
-    n += 1
+    global my_list
+    my_list.append(1)
 
-n = 0
+my_list = []
 
 threads = []
 for i in range(1000):
@@ -21,7 +21,7 @@ for thread in threads:
 for thread in threads:
     thread.join()
 
-print(f'Final value: {n}.')
+print(f'Final list length: {len(my_list)}.')
 
 #print(dis.dis(foo))
 
