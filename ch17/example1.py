@@ -1,6 +1,5 @@
 # ch17/example1.py
 
-import dis
 import sys; sys.setswitchinterval(.000001)
 import threading
 
@@ -22,7 +21,5 @@ for thread in threads:
     thread.join()
 
 print(f'Final value: {n}.')
-
-#print(dis.dis(foo))
 
 print('Finished.')
