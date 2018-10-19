@@ -79,9 +79,9 @@ def call_periodic(delay, interval, task):
     call_later(delay, inner)
 
 def on_connect(c):
-    g = nbcaser(c)      # `g` is a coroutine
-    generators[c] = g   # generators -> awaitables
-    callback[c] = g.send(None)  # we do this to advance `nbcaser` coroutine
+    g = process_request(c)      # `g` is a coroutine
+    generators[c] = g           # generators -> awaitables
+    callback[c] = g.send(None)  # do this to advance `process_request` coroutine
                                 # to yield through the `readline` coroutine
                                 # which will sleep on its `yield` expression
 
@@ -104,13 +104,13 @@ def readline(c):
     return line
 
 # A non-blocking sleep to use with two-way generators
-def sleep(c, delay):
+'''def sleep(c, delay):
     def inner():
         g = generators[c]
         callback[c] = next(g)
 
     call_later(delay, inner)
-    return lambda *args: callback[c]
+    return lambda *args: callback[c]'''
 
 ###########################################################################
 # User's Business Logic
@@ -118,9 +118,9 @@ def sleep(c, delay):
 def announcement():
     print(f'The event loop is still running at: {time.ctime()}.')
 
-call_periodic(delay=1, interval=15, task=announcement)
+call_periodic(delay=1, interval=1, task=announcement)
 
-async def nbcaser(c):
+async def process_request(c):
     upper, title = 'upper', 'title'
     mode = upper
     print(f'Received connection from {sessions[c].address}.')
