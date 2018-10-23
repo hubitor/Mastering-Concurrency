@@ -21,7 +21,7 @@ def reactor(host='localhost', port=9600):
 
     try:
         while True:
-            # Server existing clients only if they already have data ready
+            # Serve existing clients only if they already have data ready
             ready_to_read, _, _ = select.select(sessions, [], [], 0.1)
             for conn in ready_to_read:
                 if conn is sock:

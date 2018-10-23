@@ -2,7 +2,6 @@ import socket
 from collections import namedtuple
 
 Session = namedtuple('Session', ['address', 'file'])
-
 sessions = {}           # { csocket : Session(address, file) }
 
 # Main event loop
