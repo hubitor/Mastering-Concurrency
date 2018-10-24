@@ -49,14 +49,13 @@ def process_request(conn, cli_address):
                     nums = list(map(int, line.split(',')))
                 except ValueError:
                     conn.sendall(
-                        b'ERROR: Please only enter integers separated by commas\n')
+                        b'ERROR. Enter only integers separated by commas\n')
                     continue
 
                 if mode == 'sum':
                     conn.sendall(b'Sum of input numbers: %a\r\n'
                         % str(sum(nums)))
                 else:
-                    result = reduce(mul, nums, 1)
                     conn.sendall(b'Product of input numbers: %a\r\n'
                         % str(reduce(mul, nums, 1)))
     finally:
