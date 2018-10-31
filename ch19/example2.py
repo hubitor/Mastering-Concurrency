@@ -18,4 +18,6 @@ if __name__ == '__main__':
             time.sleep(2)
             print('Printing in the main thread.')
     except KeyboardInterrupt:
-        scheduler.shutdown()
+        pass
+
+scheduler.shutdown()

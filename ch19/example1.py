@@ -16,3 +16,5 @@ if __name__ == '__main__':
         print('Printing in the main thread.')
     except KeyboardInterrupt:
         pass
+
+scheduler.shutdown()
