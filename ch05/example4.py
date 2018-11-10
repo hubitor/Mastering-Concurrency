@@ -13,7 +13,7 @@ def get_html_source(url):
 
 def get_synonyms_from_html(html_source):
     soup = BeautifulSoup(html_source, 'html.parser')
-    html_synonyms = soup.select('div.MainContentContainer > div > section > ul > li > span > a')
+    html_synonyms = soup.select('section.MainContentContainer > section > section > ul > li > span > a')
 
     return [item.getText() for item in html_synonyms]
 
