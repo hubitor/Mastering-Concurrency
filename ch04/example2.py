@@ -2,6 +2,7 @@
 
 from threading import Lock
 
+my_lock = Lock()
 
 # induces deadlocks
 def get_data_from_file_v1(filename):
@@ -17,15 +18,13 @@ def get_data_from_file_v2(filename):
     with my_lock, open(filename, 'r') as f:
         data.append(f.read())
 
-
-my_lock = Lock()
 data = []
 
 try:
-    #get_data_from_file_v1('output2/sample0.txt')
-    get_data_from_file_v2('output2/sample0.txt')
-except:
-    print('Encountered an exception...')
+    get_data_from_file_v1('output2/sample0.txt')
+    #get_data_from_file_v2('output2/sample0.txt')
+except FileNotFoundError:
+    print('File could not be found...')
 
 my_lock.acquire()
-print('Lock acquired.')
+print('Lock can still be acquired.')
