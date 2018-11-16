@@ -18,28 +18,25 @@ class MyThread(threading.Thread):
 
 def process_queue():
     while not exit:
-        queue_lock.acquire()
-
         if not my_queue.empty():
             x = my_queue.get()
             print_factors(x)
 
-        queue_lock.release()
         time.sleep(1)
 
 def print_factors(x):
-    print('Positive factors of %i are:' % x)
+    result_string = 'Positive factors of %i are: ' % x
     for i in range(1, x + 1):
         if x % i == 0:
-            print(i)
+            result_string += str(i) + ' '
+    result_string += '\n' + '_' * 20
 
-    print('_' * 20)
+    print(result_string)
 
 
 # setting up variables
 input = [1, 10, 4, 3]
 
-queue_lock = threading.Lock()
 my_queue = queue.Queue(10)
 
 
@@ -54,26 +51,19 @@ thread3.start()
 
 
 # filling the queue
-queue_lock.acquire()
 for x in input:
     my_queue.put(x)
-queue_lock.release()
-
-start = time.time()
 
 # waiting for queue to empty
-while not my_queue.empty():
-    pass
-
+#while not my_queue.empty():
+#    pass
 
 # changing the flag exit so threads would stop
 exit = 1
-
 
 # joining all 3 threads
 thread1.join()
 thread2.join()
 thread3.join()
 
-print(f'Took {time.time() - start : .2f} seconds.')
 print('Done.')
