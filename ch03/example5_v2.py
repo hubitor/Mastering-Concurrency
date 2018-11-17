@@ -4,7 +4,6 @@ import queue
 import threading
 import time
 
-exit = 0
 
 class MyThread(threading.Thread):
     def __init__(self, name):
@@ -17,9 +16,12 @@ class MyThread(threading.Thread):
         print('Exiting thread %s.' % self.name)
 
 def process_queue():
-    while not exit:
-        if not my_queue.empty():
-            x = my_queue.get()
+    while True:
+        try:
+            x = my_queue.get(block=False)
+        except queue.Empty:
+            return
+        else:
             print_factors(x)
 
         time.sleep(1)
@@ -35,9 +37,12 @@ def print_factors(x):
 
 
 # setting up variables
-input = [1, 10, 4, 3]
+input_ = [1, 10, 4, 3]
 
-my_queue = queue.Queue(10)
+# filling the queue
+my_queue = queue.Queue()
+for x in input_:
+    my_queue.put(x)
 
 
 # initializing and starting 3 threads
@@ -48,18 +53,6 @@ thread3 = MyThread('C')
 thread1.start()
 thread2.start()
 thread3.start()
-
-
-# filling the queue
-for x in input:
-    my_queue.put(x)
-
-# waiting for queue to empty
-#while not my_queue.empty():
-#    pass
-
-# changing the flag exit so threads would stop
-exit = 1
 
 # joining all 3 threads
 thread1.join()
