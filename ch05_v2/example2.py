@@ -1,6 +1,6 @@
-import threading
+# ch05/example2.py
+
 import requests
-import time
 
 def ping(url):
     res = requests.get(url)
@@ -15,20 +15,7 @@ urls = [
     'http://httpstat.us/524'
 ]
 
-start = time.time()
 for url in urls:
     ping(url)
-print(f'Sequential: {time.time() - start : .2f} seconds')
 
-print()
-
-start = time.time()
-threads = []
-for url in urls:
-    thread = threading.Thread(target=ping, args=(url,))
-    threads.append(thread)
-    thread.start()
-for thread in threads:
-    thread.join()
-
-print(f'Threading: {time.time() - start : .2f} seconds')
+print('Done.')

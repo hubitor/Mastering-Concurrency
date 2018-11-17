@@ -1,19 +1,15 @@
+# ch05/example1.py
+
 import requests
 
-def ping(url):
-    res = requests.get(url)
-    print(f'{url}: {res.text}')
+url = 'http://www.google.com'
 
-urls = [
-    'http://httpstat.us/200',
-    'http://httpstat.us/400',
-    'http://httpstat.us/404',
-    'http://httpstat.us/408',
-    'http://httpstat.us/500',
-    'http://httpstat.us/524'
-]
+res = requests.get(url)
 
-for url in urls:
-    ping(url)
+print(res.status_code)
+print(res.headers)
+
+with open('google.html', 'w') as f:
+    f.write(res.text)
 
 print('Done.')

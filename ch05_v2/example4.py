@@ -1,3 +1,5 @@
+# ch05/example4.py
+
 import threading
 import queue
 import requests
@@ -14,8 +16,11 @@ class MyThread(threading.Thread):
 
 urls = [
     'http://httpstat.us/200',
-    'http://httpstat.us/200?sleep=20000',
-    'http://httpstat.us/400'
+    'http://httpstat.us/400',
+    'http://httpstat.us/404',
+    'http://httpstat.us/408',
+    'http://httpstat.us/500',
+    'http://httpstat.us/524'
 ]
 
 threads = [MyThread(url) for url in urls]
