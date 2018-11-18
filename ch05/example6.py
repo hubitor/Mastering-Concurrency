@@ -1,55 +1,47 @@
-import requests
-from bs4 import BeautifulSoup
+# ch05/example6.py
 
 import threading
+import requests
+import time
 
-from timeit import default_timer as timer
-
-
-ROOT_URL = 'http://www.thesaurus.com/browse/'
-
-def get_html_source(url):
-    try:
-        r = requests.get(url)
-        return r.text
-
-    except Exception as e:
-        print('There was a problem: %s.' % e)
-        return False
-
-def get_synonyms_from_html(html_source):
-    soup = BeautifulSoup(html_source, 'html.parser')
-    html_synonyms = soup.select('section.MainContentContainer > section > section > ul > li > span > a')
-
-    return [item.getText() for item in html_synonyms]
+UPDATE_INTERVAL = 0.01
 
 class MyThread(threading.Thread):
-    def __init__(self, word):
+    def __init__(self, url):
         threading.Thread.__init__(self)
-        self.word = word
+        self.url = url
+        self.result = f'{self.url}: Custom timeout'
 
     def run(self):
-        html_source = get_html_source(ROOT_URL + word)
+        res = requests.get(self.url)
+        self.result = f'{self.url}: {res.text}'
 
-        if html_source:
-            synonyms = get_synonyms_from_html(html_source)
-            print('%i synonyms found for %s: %s\n' % (len(synonyms), word, str(synonyms)))
+def process_requests(threads, timeout=5):
+    def alive_count():
+        alive = [1 if thread.isAlive() else 0 for thread in threads]
+        return sum(alive)
 
+    while alive_count() > 0 and timeout > 0:
+        timeout -= UPDATE_INTERVAL
+        time.sleep(UPDATE_INTERVAL)
+    for thread in threads:
+        print(thread.result)
 
-my_input = input('Enter a list of words for scraped synonyms (separated by commas): ')
-print()
+urls = [
+    'http://httpstat.us/200',
+    'http://httpstat.us/200?sleep=4000',
+    'http://httpstat.us/200?sleep=20000',
+    'http://httpstat.us/400'
+]
 
-start = timer()
-words = my_input.split(',')
+start = time.time()
 
-threads = []
-for word in words:
-    temp_thread = MyThread(word.strip())
-    temp_thread.start()
-
-    threads.append(temp_thread)
-
+threads = [MyThread(url) for url in urls]
 for thread in threads:
-    thread.join()
+    thread.setDaemon(True)
+    thread.start()
+process_requests(threads)
 
-print('Took %.2f seconds' % (timer() - start))
+print(f'Took {time.time() - start : .2f} seconds')
+
+print('Done.')

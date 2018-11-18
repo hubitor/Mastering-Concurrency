@@ -1,40 +1,35 @@
-import requests
-from bs4 import BeautifulSoup
+# ch05/example5.py
 
 import threading
+import requests
+import time
 
-from timeit import default_timer as timer
+class MyThread(threading.Thread):
+    def __init__(self, url):
+        threading.Thread.__init__(self)
+        self.url = url
+        self.result = None
 
+    def run(self):
+        res = requests.get(self.url)
+        self.result = f'{self.url}: {res.text}'
 
-ROOT_URL = 'http://www.thesaurus.com/browse/'
+urls = [
+    'http://httpstat.us/200',
+    'http://httpstat.us/200?sleep=20000',
+    'http://httpstat.us/400'
+]
 
-def get_html_source(url):
-    try:
-        r = requests.get(url)
-        return r.text
+start = time.time()
 
-    except Exception as e:
-        print('There was a problem: %s.' % e)
-        return False
+threads = [MyThread(url) for url in urls]
+for thread in threads:
+    thread.start()
+for thread in threads:
+    thread.join()
+for thread in threads:
+    print(thread.result)
 
-def get_synonyms_from_html(html_source):
-    soup = BeautifulSoup(html_source, 'html.parser')
-    html_synonyms = soup.select('section.MainContentContainer > section > section > ul > li > span > a')
+print(f'Took {time.time() - start : .2f} seconds')
 
-    return [item.getText() for item in html_synonyms]
-
-
-my_input = input('Enter a list of words for scraped synonyms (separated by commas): ')
-print()
-
-start = timer()
-words = my_input.split(',')
-
-for word in words:
-    html_source = get_html_source(ROOT_URL + word.strip())
-
-    if html_source:
-        synonyms = get_synonyms_from_html(html_source)
-        print('%i synonyms found for %s: %s\n' % (len(synonyms), word, str(synonyms)))
-
-print('Took %.2f seconds' % (timer() - start))
+print('Done.')

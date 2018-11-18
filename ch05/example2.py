@@ -1,13 +1,21 @@
+# ch05/example2.py
+
 import requests
 
-url = 'http://www.thesaurus.com/browse/pythonic'
+def ping(url):
+    res = requests.get(url)
+    print(f'{url}: {res.text}')
 
-r = requests.get(url)
+urls = [
+    'http://httpstat.us/200',
+    'http://httpstat.us/400',
+    'http://httpstat.us/404',
+    'http://httpstat.us/408',
+    'http://httpstat.us/500',
+    'http://httpstat.us/524'
+]
 
-print(r.status_code)
-print(r.headers)
-
-with open('pythonic_thesaurus.html', 'w') as f:
-    f.write(r.text)
+for url in urls:
+    ping(url)
 
 print('Done.')

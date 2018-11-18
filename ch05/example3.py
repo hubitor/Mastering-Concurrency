@@ -1,11 +1,36 @@
-from bs4 import BeautifulSoup
+# ch05/example3.py
 
-with open('pythonic_thesaurus.html') as f:
-    html_source = f.read()
+import threading
+import requests
+import time
 
-soup = BeautifulSoup(html_source, 'html.parser')
+def ping(url):
+    res = requests.get(url)
+    print(f'{url}: {res.text}')
 
-html_synonyms = soup.select('section.MainContentContainer > section > section > ul > li > span > a')
+urls = [
+    'http://httpstat.us/200',
+    'http://httpstat.us/400',
+    'http://httpstat.us/404',
+    'http://httpstat.us/408',
+    'http://httpstat.us/500',
+    'http://httpstat.us/524'
+]
 
-text_synonyms = [item.getText() for item in html_synonyms]
-print(text_synonyms)
+start = time.time()
+for url in urls:
+    ping(url)
+print(f'Sequential: {time.time() - start : .2f} seconds')
+
+print()
+
+start = time.time()
+threads = []
+for url in urls:
+    thread = threading.Thread(target=ping, args=(url,))
+    threads.append(thread)
+    thread.start()
+for thread in threads:
+    thread.join()
+
+print(f'Threading: {time.time() - start : .2f} seconds')
