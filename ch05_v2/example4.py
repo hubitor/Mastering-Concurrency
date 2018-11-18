@@ -1,7 +1,6 @@
 # ch05/example4.py
 
 import threading
-import queue
 import requests
 import time
 

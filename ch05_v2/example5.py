@@ -1,7 +1,6 @@
 # ch05/example5.py
 
 import threading
-import queue
 import requests
 
 class MyThread(threading.Thread):

@@ -1,7 +1,6 @@
 # ch05/example6.py
 
 import threading
-import queue
 import requests
 import time
 
@@ -36,10 +35,6 @@ urls = [
     'http://httpstat.us/200?sleep=20000',
     'http://httpstat.us/400'
 ]
-
-my_queue = queue.Queue()
-for url in urls:
-    my_queue.put(url)
 
 threads = [MyThread(url) for url in urls]
 for thread in threads:
