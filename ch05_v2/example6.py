@@ -27,8 +27,6 @@ def process_requests(threads, timeout=5):
     for thread in threads:
         print(thread.result)
 
-    return
-
 urls = [
     'http://httpstat.us/200',
     'http://httpstat.us/200?sleep=4000',
@@ -36,10 +34,14 @@ urls = [
     'http://httpstat.us/400'
 ]
 
+start = time.time()
+
 threads = [MyThread(url) for url in urls]
 for thread in threads:
     thread.setDaemon(True)
     thread.start()
 process_requests(threads)
+
+print(f'Took {time.time() - start : .2f} seconds')
 
 print('Done.')
