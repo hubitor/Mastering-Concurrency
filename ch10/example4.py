@@ -35,11 +35,14 @@ async def main():
 
     await asyncio.wait([task1, task2, task3])
 
-try:
-    start = timer()
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
-    print('Took %.2f seconds.' % (timer() - start))
-except Exception as e:
-    print('There was a problem:')
-    print(str(e))
+if __name__ == '__main__':
+    try:
+        start = timer()
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(main())
+        print('Took %.2f seconds.' % (timer() - start))
+    except Exception as e:
+        print('There was a problem:')
+        print(str(e))
+    finally:
+        loop.close()

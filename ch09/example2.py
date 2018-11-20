@@ -34,9 +34,12 @@ async def main():
 
     await asyncio.wait([task1, task2, task3])
 
-try:
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
-except Exception as e:
-    print('There was a problem:')
-    print(str(e))
+if __name__ == '__main__':
+    try:
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(main())
+    except Exception as e:
+        print('There was a problem:')
+        print(str(e))
+    finally:
+        loop.close()

@@ -35,15 +35,19 @@ async def main():
 
     await asyncio.gather(*[task1, task2, task3])
 
-try:
-    start = timer()
+if __name__ == '__main__':
+    try:
+        start = timer()
 
-    executor = ProcessPoolExecutor(max_workers=3)
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+        executor = ProcessPoolExecutor(max_workers=3)
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(main())
 
-    print('Took %.2f seconds.' % (timer() - start))
+        print('Took %.2f seconds.' % (timer() - start))
 
-except Exception as e:
-    print('There was a problem:')
-    print(str(e))
+    except Exception as e:
+        print('There was a problem:')
+        print(str(e))
+
+    finally:
+        loop.close()
