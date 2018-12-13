@@ -1,8 +1,8 @@
-# Mastering Concurrency in Python
+# _Mastering Concurrency in Python_
 
 ![Alt text](https://d255esdrn735hr.cloudfront.net/sites/default/files/imagecache/ppv4_main_book_cover/B11327.png)
 
-Homepage: [Mastering Concurrency in Python](https://www.packtpub.com/application-development/mastering-concurrency-python)
+Homepage: [_Mastering Concurrency in Python_](https://www.packtpub.com/application-development/mastering-concurrency-python)
 
 Author: [Quan Nguyen](https://github.com/KrisNguyen135)
 
@@ -22,7 +22,7 @@ Publisher: [Packt Publishing Ltd](https://www.packtpub.com)
 
 ## Brief Introduction to _Mastering Concurrency in Python_
 
-Mastering Concurrency in Python will serve as a comprehensive introduction to various advanced concepts in concurrent engineering and programming in Python. This book will also provide a detailed overview of how concurrency and parallelism are being used in real-world applications. It is a perfect blend of theoretical analyses and practical examples, which will give you a full understanding of the theories and techniques regarding concurrent programming in Python.
+_Mastering Concurrency in Python_ will serve as a comprehensive introduction to various advanced concepts in concurrent engineering and programming in Python. This book will also provide a detailed overview of how concurrency and parallelism are being used in real-world applications. It is a perfect blend of theoretical analyses and practical examples, which will give you a full understanding of the theories and techniques regarding concurrent programming in Python.
 
 This book will be divided into six main sections. It will start with the idea behind concurrency and concurrent programming—the history, how it is being used in the industry today, and finally, a mathematical analysis of the speedup that concurrency can potentially provide.
 
